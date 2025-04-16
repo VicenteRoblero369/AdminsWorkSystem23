@@ -1,0 +1,126 @@
+﻿@model AdminsWorkSystem.Modelos.ViewModels.EvidenciaOReporteVM
+@{
+    ViewData["Title"] = "ImprimirOrden";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+</head>
+<body>
+    <div class="row">
+        <div class="col-sm-4">
+            <img href="~/imagenes/ImagenTS.png" class="rounded" width="250" height="200" />
+        </div>
+        <div class="col-sm-4">
+            <label class="col-form-label" style="font-size:20px;">Universidad Autónoma Indígena de México</label>
+        </div>
+    </div>
+    <div class="form-group row">
+
+        <div class="col-2">
+            <label class="col-form-label" style="font-weight:bold; font-size:40px;">
+                Evidencia#
+            </label>
+        </div>
+        <div class="col-2" style="border: none;">
+            <label class="col-form-label" style="font-weight:bold; font-size:40px;">@Model.EvidenciaOReporte.Id</label>
+        </div>
+    </div>
+    <div class="form-group row">
+
+        <div class="col-2">
+            <label class="col-form-label" style="font-weight:bold; font-size:20px;">
+                Universidad Autónoma Indígena de México:
+            </label>
+        </div>
+        <div class="col-4" style="border: none;">
+            <label class="col-form-label" style="font-size:20px;">
+                Unidad Mochicahui
+                Prolongación 5 de Mayo S/N, Ejido Poblado de Mochicahui, El Fuerte, Sinaloa.
+                Tel. (668) 1763446 y (668) 1763449. C.P. 81890.
+            </label>
+        </div>
+        <div class="col-6" style="border: none;">
+            <label class="col-form-label" style="font-size:20px;">
+                Unidad Los Mochis
+                Fuente de Cristal 2334 entre Coral y Cuarzo.
+                Fracc. Fuentes del Bosque.
+                C.P. 81229 Tel: (668) 8160-320 al 350, (668) 8807-150, (668) 8807-234
+            </label>
+        </div>
+        <div class="col-8" style="border: none;">
+            <label class="col-form-label" style="font-size:20px;">
+                Unidad Choix
+                Blvd. Universitario, Col. Ejidal Tel. (698) 8-66-00-22
+            </label>
+        </div>
+        <div class="col-8" style="border: none;">
+            <label class="col-form-label" style="font-size:20px;">
+                Unidad Virtual
+                Fuente de Cristal 2334 entre Coral y Cuarzo. 2do piso Auditorio
+                Fracc. Fuentes del Bosque. C.P. 81229
+                Tel: (668) 8160-320 ext. 1901 y 1902
+            </label>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-2">
+            <label class="col-form-label" style="font-weight: bold; font-size:20px;">Estudiante:</label>
+        </div>
+        <div class="col-6">
+            <label class="col-form-label" style="font-size:20px;">@Model.EvidenciaOReporte.UsuarioAplicacion.Nombres</label>&nbsp; <label class="col-form-label" style="font-size:20px;">@Model.EvidenciaOReporte.UsuarioAplicacion.ApellidoPaterno</label>&nbsp;<label class="col-form-label" style="font-size:20px;">@Model.EvidenciaOReporte.UsuarioAplicacion.ApellidoMaterno</label>          
+        </div>
+    </div>
+    <div>
+        <table class="table table-striped border" style="height:10px;">
+            <thead class="thead-dark">
+                <tr class="table-secondary thead-dark">
+                    <th style="font-weight: bold; font-size:20px;">
+                        Matrícula:
+                    </th>
+                    <th style="text-align:right; font-weight: bold; font-size:20px;">
+                        Unidad:
+                    </th>
+                    <th style="text-align:right; font-weight: bold; font-size:20px;">
+                        Especialidad
+                    </th>
+                </tr>
+            <thead>
+            <tbody style="height:10px;">
+                        
+                    <tr>
+                        <td style="font-size:20px;">
+                                    @Html.DisplayFor(o => o.EvidenciaOReporte.UsuarioAplicacion.Matricula)
+                        </td>
+
+                        <td style="text-align:right;font-size:20px;">
+                                @Html.DisplayFor(o => o.EvidenciaOReporte.UsuarioAplicacion.Unidades.Nombre)
+                        </td>
+                        <td style="text-align:right;font-size:20px;">
+                                @Html.DisplayFor(o => o.EvidenciaOReporte.UsuarioAplicacion.Especialidades.Nombre)
+                        </td>
+                    </tr>
+                    
+
+            </tbody>
+        </table>
+    </div>
+    <br />
+    <div class="form-group row">
+        <div class="col-8">
+        </div>
+        <div class="col-2">
+            <label class="col-form-label" style="font-weight: bold;font-size:20px;">Estatus Estudiante:</label>
+        </div>
+        <div class="col-2" style="text-align:right; font-size:20px;">
+            <label class="col-form-label">@(Model.EvidenciaOReporte.UsuarioAplicacion.Status)</label>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+

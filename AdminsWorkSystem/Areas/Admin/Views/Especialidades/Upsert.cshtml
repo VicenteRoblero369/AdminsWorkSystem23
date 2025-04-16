@@ -1,0 +1,79 @@
+﻿@model AdminsWorkSystem.Modelos.ViewModels.EspecialidadesVM
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var titulo = "Crear Nuevo";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.Especialidades.Id != 0)
+    {
+        // Actualizar
+        titulo = "Actualizar";
+        <input type="hidden" asp-for="Especialidades.Id" />
+    }
+
+    <div class="col-12 border-bottom">
+        <h2 class="text-primary">@titulo</h2>
+    </div>
+    <div class="col-8 pt-4">
+        <div class="form-group row">
+            <div class="col-4">
+                <label asp-for="Especialidades.Nombre"></label>
+            </div>
+            <div class="col-8">
+                <input asp-for="Especialidades.Nombre" onkeyup="mayus(this);" class="form-control" />
+                <span asp-validation-for="Especialidades.Nombre" class="text-danger"></span>
+            </div>
+        </div>       
+        <div class="form-group row">
+            <div class="col-4">
+                Unidad Pertenece
+            </div>
+            <div class="col-8">
+                @Html.DropDownListFor(u => u.Especialidades.UnidadesId, Model.UnidadLista, "Seleccione",
+                new { @class = "form-control" })
+                <span asp-validation-for="Especialidades.UnidadesId" class="text-danger"></span>
+            </div>
+        </div>                      
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                @if (Model.Especialidades.Id != 0)
+                {
+                    <partial name="_BotonesActualizarYRegresar" model="Model.Especialidades.Id" />
+                }
+                else
+                {
+                    <div class="row">
+                        <div class="col">
+                            <button type="submit" onclick="return validarEntrada()" class="btn btn-primary form-control">Crear</button>
+                        </div>
+                        <div class="col">
+                            <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+
+   
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+
+
+}
+
+
+
+
+
+

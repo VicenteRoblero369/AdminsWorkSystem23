@@ -1,0 +1,202 @@
+﻿@page
+@model RegisterModel
+@using AdminsWorkSystem.Utilidades
+<div class="py-4">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="row form-group">
+        <div class="col-8 offset-2">
+            <div class="card">
+                <div class="card-body px-lg-5 pt-4">
+                    <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <h3 class="col-12 text-success text-center py-4">
+                            @if (User.IsInRole(DS.Role_Admin))
+                            {
+                                <strong>Registrar un Usuario tipo Administrador</strong>
+                            }
+                            else
+                            {
+                                <strong>Registrarse</strong>
+
+                            }
+                        </h3>
+                        <hr />
+                        <div class="py-2">
+                            <input asp-for="Input.Nombres"  onkeyup="mayus(this);" placeholder="Nombres" class="form-control" autocomplete="nombres" aria-required="true" />
+                            <span asp-validation-for="Input.Nombres" class="text-danger"></span>
+                        </div>
+                        <div class="form-row row py-2">
+                            <div class="col-6">
+                                <input asp-for="Input.ApellidoPaterno" onkeyup="mayus(this);" placeholder="Apellido Paterno" class="form-control" autocomplete="ApellidoPaterno" aria-required="true" />
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="Input.ApellidoMaterno"  onkeyup="mayus(this);" placeholder="Apellido Materno" class="form-control" autocomplete="ApellidoMaterno" aria-required="true" />
+                            </div>
+                            <span asp-validation-for="Input.ApellidoPaterno" class="text-danger"></span>
+                            <span asp-validation-for="Input.ApellidoMaterno" class="text-danger"></span>
+                        </div>
+                        <div class="form-row row py-2">
+                            <div class="col-6">
+                                <input asp-for="Input.LenguaMaterna" onkeyup="mayus(this);" placeholder="Lengua Materna" class="form-control" autocomplete="LenguaMaterna" aria-required="true" />
+                            </div>
+                            <div class="col-6">
+                                 @foreach (var gender in Model.Input.Genders)
+                        {
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" asp-for="Input.Sexo" value="@gender" />
+                                @gender
+                            </div>
+                            <br />
+                        }
+                            </div>
+                            <span asp-validation-for="Input.LenguaMaterna" class="text-danger"></span>
+                        </div>
+                               
+                        @if (User.IsInRole(DS.Role_Admin))
+                        {
+                            <div class="form-row row py-2">
+                                <div class="col-6">
+                                    <input asp-for="Input.NumeroEmpleado" placeholder="Numero Empelado" class="form-control" autocomplete="NumeroEmpleado" aria-required="true" />
+                                </div>
+
+                                <span asp-validation-for="Input.NumeroEmpleado" class="text-danger"></span>
+                            </div>
+
+                        }
+                        else
+                        {
+                            <div class="form-row row py-2">
+                                <div class="col-6">
+                                    <input asp-for="Input.Matricula" placeholder="Matrícula" class="form-control" autocomplete="Matricula" aria-required="true" />
+                                </div>
+                                <div class="col-6">
+                                   
+                                    @Html.DropDownListFor(g=>g.Input.Generacion, Model.Input.ListaGeneracion, "Seleccione Generación", new { @class="form-control"})
+                                </div>
+                                <span asp-validation-for="Input.Matricula" class="text-danger"></span>
+                                <span asp-validation-for="Input.Generacion" class="text-danger"></span>
+                            </div>
+                        }
+                        
+                        <div class="form-row row py-2">
+                            <div class="col-6">
+                                <select asp-for="Input.Unidades" id="unidades" class="form-control">
+
+                                </select>                               
+                            </div>
+                            <div class="col-6">
+                                <select asp-for="Input.Especialidades" id="especialidades" class="form-control">
+                                </select>                              
+                            </div>                          
+                            <span asp-validation-for="Input.Unidades" class="text-danger"></span>
+                            <span asp-validation-for="Input.Especialidades" class="text-danger"></span>
+                        </div>
+                        @if (User.IsInRole(DS.Role_Admin))
+                        {
+                            
+                            <div class="py-2">
+                                <select asp-for="Input.Status" hidden class="form-control">
+                                    <option value="Activo">Activo</option>
+                                </select>
+                                <span asp-validation-for="Input.Status" class="text-danger"></span>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="py-2">
+                                <select asp-for="Input.Status" hidden class="form-control">
+                                    <option value="Activo">Activo</option>
+                                </select>
+                                <span asp-validation-for="Input.Status" class="text-danger"></span>
+                            </div>
+                        }
+                        @if (User.IsInRole(DS.Role_Admin))
+                        {
+                            <div class="form-group">
+                                <select asp-for="Input.Role" class="form-select" asp-items="@Model.Input.ListaRol">
+                                    <option value="">--Seleccione rol--</option>
+                                </select>
+                            </div>
+                        }
+                        @if (User.IsInRole(DS.Role_JefaDepartamento))
+                        {
+                            <div class="form-group">
+                                <select asp-for="Input.Role" class="form-select" asp-items="@Model.Input.ListaRolv">
+                                    <option value="">--Seleccione rol--</option>
+                                </select>
+                            </div>
+                        }
+                        <div class="py-2">
+                            <input asp-for="Input.PhoneNumber" placeholder="Teléfono" class="form-control" autocomplete="telefono" aria-required="true" />
+                            <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
+                        </div>
+                        <div class="py-2 was-validated">
+                            <input asp-for="Input.Email" placeholder="Correo Electrónico" class="form-control is-invalid" type="email" autocomplete="Email" aria-required="true" />
+                           @* <input asp-for="Input.Email" placeholder="Correo Electrónico" class="form-control is-invalid" type="email" autocomplete="Email" aria-required="true" />*@
+                            <div class="invalid-feedback">
+                                Es importante que proporciones un correo electrónico válido,!
+                            </div>
+                            <span asp-validation-for="Input.Email" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-row row py-2">
+                            <div class="col-6">
+                                <input asp-for="Input.Password" placeholder="Ingrese contraseña" type="password" class="form-control" autocomplete="new-password" aria-required="true" />
+                            </div>
+                            <div class="col-6">
+                                <input asp-for="Input.ConfirmPassword" placeholder="Confirmar Contraseña" type="password" class="form-control" autocomplete="new-password" aria-required="true" />
+                            </div>
+                            <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        <div class="py-2">
+                            @if (User.IsInRole(DS.Role_Admin))
+                            {
+                                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-warning form-control">Registrar Usuario Administrador</button>
+                            }
+                            else
+                            {
+                                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary form-control">Registrar</button>
+                            }
+
+                        </div>
+
+                    </form>
+
+                    <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                        <p>
+                            Al dar click en <em>Registrar</em> estas de acuerdo con los terminos <a href="" target="_blank">Terminos del servicio</a>
+                        </p>
+                        <div class="row">
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins)
+                                {
+                                    @if (provider.Name.ToLower().Contains("facebook"))
+                                    {
+                                        <button type="submit" class="btn btn-block facebook-btn form-control"
+                                        name="provider" value="@provider.Name"
+                                        title="Registrarse mediante su cuenta de @provider.DisplayName">
+                                            <i class="fab fa-facebook-square"></i> @provider.DisplayName
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Registrarse usando su cuenta de @provider.DisplayName">@provider.DisplayName</button>
+                                    }
+
+                                }
+                            </p>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/cascada.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+}

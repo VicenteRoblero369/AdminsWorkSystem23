@@ -1,0 +1,64 @@
+﻿@page
+@model LoginModel
+
+<div id="logreg-forms">
+    <h1 class="h3 mb-3 font-weight-normal text-info pt-4" style="text-align:center;">Conectarse</h1>
+    @{
+        if ((Model.ExternalLogins?.Count ?? 0) == 0)
+        {
+            <div>
+                <p class="pb-2">
+                    No Hay otros servicios de Autenticación
+                </p>
+            </div>
+        }
+        else
+        {
+            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                <div>
+
+                    @foreach (var provider in Model.ExternalLogins)
+                    {
+                        @if (provider.Name.ToLower().Contains("facebook"))
+                        {
+                            <button type="submit" class="btn btn-block facebook-btn form-control"
+                        name="provider" value="@provider.Name"
+                        title="Conectarse mediante su cuenta de @provider.DisplayName">
+                                <i class="fab fa-facebook-square"></i> @provider.DisplayName
+                            </button>
+                        }
+                        else
+                        {
+                            <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                        }
+
+                    }
+
+                </div>
+            </form>
+        }
+    }
+
+    <form id="account" method="post">
+        @if (Model.ExternalLogins?.Count > 0)
+        {
+            <p style="text-align:center;">Conectarse con su Cuenta GMAIL Registrado</p>
+        }
+        <input asp-for="Input.Email" placeholder="Correo Electrónico" type="text" class="mb-1 form-control" autocomplete="Email" aria-required="true" />
+        <input asp-for="Input.Password" placeholder="Password" type="password" class="mb-1 form-control" autocomplete="current-password" aria-required="true" />
+        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-success btn-block">
+            <i class="fas fa-sign-in-alt"></i> Acceso
+        </button>
+
+        @*<a id="forgot-password" asp-page="./ForgotPassword" class="pb-2 text-info">Olvidó su password?</a*@
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl"
+           class="btn btn-info text-white">Registrarse como nuevo Usuario</a>
+    </form>
+</div>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,163 @@
+﻿@model AdminsWorkSystem.Modelos.Constancia
+@using AdminsWorkSystem.Utilidades
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var titulo = "Crear";
+    var tituloDos = "Constancia";
+}
+
+<form method="post" enctype="multipart/form-data">
+    <div class="row p-3 border-0">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    @if (Model.Id != 0)
+    {
+        // Actualizar
+        titulo = "Actualizar Datos";
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="Id" />
+    }
+   
+    @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_ResponsableU) || User.IsInRole(DS.Role_ResponsableC) || User.IsInRole(DS.Role_Coordinadores))
+    {
+    <div class="col-12 border-bottom">
+
+            <h2 class="text-primary">@titulo</h2>
+            </div>
+            <div class="col-8 pt-4">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label>Matrícula Estudiante</label>
+                    </div>
+                    <div class="col-8">
+                        <input asp-for="MyProperty" class="form-control" />
+                        <span asp-validation-for="MyProperty" class="text-danger"></span>
+                    </div>
+                </div>
+                <br />           
+            <div class="col-8">
+                <fieldset>
+                    <select id="MovieType" hidden class="form-control" asp-for="Estatus">
+                        <option value="Entregado">Entregado</option>
+                    </select>
+                </fieldset>
+            </div>
+                <br />
+                <div class="form-group row">
+                    <div class="col-4">
+                        Archivo
+                    </div>
+                    <div class="col-8">
+                        <input type="file" name="files" id="imagedoc" multiple class="form-control" />
+                    </div>
+                </div>
+                <br />
+          
+        <div class="form-group row">
+            <div class="col-8 offset-4">
+                        @if (Model.Id != 0)
+                        {
+                            <partial name="_BotonesActualizarYRegresar" model="Model.Id" />
+                        }
+                        else
+                        {
+                        <div class="row">
+                                <div class="col">
+                            <button type="submit" class="btn btn-primary form-control"><i class="fas fa-cog fa-spin"></i>Guardar</button>
+                                </div>
+                        <div class="col">
+                        <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+                        </div>
+                        </div>
+                        }
+            </div>
+        </div>
+
+    </div>
+
+    }
+
+    @if (Model.Id != 0)
+    {
+        <div class="form-control">
+            <div class="col-12 border-bottom">
+                <h2 class="text-primary">@tituloDos</h2>
+            </div>
+            <div class="col-4 border-0">
+                <img src="~/imagenes/Pdf.png" style="width:100%; border-radius:5px; border:1px solid #bbb9b9" />
+            </div>
+            <a class="btn btn-lg btn-primary" src="@Model.Archivo" href="@Model.Archivo">Descarga Archivo</a>
+        </div>
+    }
+
+
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function validarEntrada() {
+            if (document.getElementById("imagedoc").value == "") {
+                swal("Error", "Seleccione Archivo", "error");
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+    @* valida si archivo seleccionado tipo pdf*@
+   @* <script type="text/javascript">
+        (function () {
+            function validarEntrada(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#imagedoc').html("<img src='" + e.target.result + "' />");
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $('#imagedoc').change(function (el) {
+                if (LimitAttach(this, 1))
+                    validarEntrada(this);
+            });
+        })();
+    </script>
+    <script type="text/javascript">
+        function LimitAttach(tField, iType) {
+            file = tField.value;
+            if (iType == 1) {
+                extArray = new Array(".pdf");
+            }
+            allowSubmit = false;
+            if (!file) return false;
+            while (file.indexOf("\\") != -1) file = file.slice(file.indexOf("\\") + 1);
+            ext = file.slice(file.indexOf(".")).toLowerCase();
+            for (var i = 0; i < extArray.length; i++) {
+                if (extArray[i] == ext) {
+                    allowSubmit = true;
+                    break;
+                }
+            }
+            if (allowSubmit) {
+                return true
+            } else {
+                tField.value = "";
+                swal("Error", "Seleccione un Formato tipo PDF", "error" + (extArray.join(" ")) + "\n Reiniciando Formulario");
+                return false;
+                setTimeout("location.reload()", 2000);
+            }
+        }*@
+
+}
+
+
+
+
+
+

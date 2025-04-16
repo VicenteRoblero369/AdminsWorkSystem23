@@ -1,0 +1,307 @@
+﻿@model AdminsWorkSystem.Modelos.ViewModels.EvidenciaOReporteVM
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var titulo = "Crear";
+    var tituloDos = "Formato";
+}
+
+    <form method="post" enctype="multipart/form-data">
+        <div class="row p-3 border-0">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        </div>
+        @if (Model.EvidenciaOReporte.Id != 0)
+        {
+            // Actualizar
+            titulo = "Actualizar Datos";
+            <input type="hidden" asp-for="EvidenciaOReporte.Id" />
+            <input type="hidden" asp-for="EvidenciaOReporte.UsuarioAplicacionId"/>
+        }
+    
+        <div class="col-12 border-bottom">
+        <div class="alert alert-dismissible alert-warning">
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            <h4 class="alert-heading">Warning!</h4>
+            <p class="mb-0">Formatos Deben estar adjutos en un solo archivo para ello puede ingresar en el siguiente enlace , <a href="https://tools.pdf24.org/es/unir-pdf#s=1684296437068" class="alert-link">Adjuntar archivos</a>.</p>
+            <p class="mb-0">Para el escaneo de los formatos por teléfono puede apoyarse con la App CamScanner, Escanea el QR y descargalo <a href="https://www.camscanner.com/download" class="alert-link">Ir a pagína oficial</a></p>
+            <b class="mb-0">Uan vez complementado el proceso en el apartado final subira el archivo validado, firmado por tus asesores</b>
+        </div>
+            <h2 class="text-primary">@titulo</h2>
+        </div>
+        <div class="col-8 pt-4">
+            <div class="row">
+                <div class="col-4">
+                    <label>Fecha Inicio</label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="EvidenciaOReporte.FechaInicio" type="date" class="form-control" />
+                    <span asp-validation-for="EvidenciaOReporte.FechaInicio" class="text-danger"></span>
+                </div>
+            </div>
+            <br/>
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Fecha Final</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="EvidenciaOReporte.FechaFinal" type="date" class="form-control" />
+                <span asp-validation-for="EvidenciaOReporte.FechaFinal" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+            <div class="form-group row">
+                <div class="col-4">
+                <label asp-for="EvidenciaOReporte.UnidadReceptora"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="EvidenciaOReporte.UnidadReceptora" class="form-control" />
+                    <span asp-validation-for="EvidenciaOReporte.UnidadReceptora" class="text-danger"></span>
+                </div>
+            </div>
+            <br/>
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="EvidenciaOReporte.Programa"></label>
+                </div>
+                <div class="col-8">
+                <fieldset>
+                    <select id="MovieType" class="form-control" asp-for="EvidenciaOReporte.Programa">
+                        <option value="">Seleccionar</option>
+                        <option>ECOLÓGICO</option>
+                        <option>PRODUCCIÓN</option>
+                        <option>SALUD</option>
+                        <option>PROMOCIÓN DE CONCIENCIA</option>
+                        <option>APOYO ADMINISTRATIVO</option>
+                        <option>EGURIDAD Y VIALIDAD</option>
+                        <option>ARTÍSTICO CULTURAL</option>
+                        <option>DONANDO SONRISAS A QUIEN MÁS LO NECESITA</option>
+                        <option>PROGRAMA EMERGENTE</option>
+                    </select>
+                </fieldset>
+                </div>
+            </div>
+        <br />
+            <div class="form-group row">
+                <div class="col-4">
+                <label asp-for="EvidenciaOReporte.SubPrograma"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="EvidenciaOReporte.SubPrograma" class="form-control" />
+                    <span asp-validation-for="EvidenciaOReporte.SubPrograma" class="text-danger"></span>
+                </div>
+            </div>
+        <br />
+            <div class="form-group row">
+                <div class="col-4">
+                <label asp-for="EvidenciaOReporte.Actividad"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="EvidenciaOReporte.Actividad" class="form-control" />
+                    <span asp-validation-for="EvidenciaOReporte.Actividad" class="text-danger"></span>
+                </div>
+            </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Fecha Liberación</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="EvidenciaOReporte.FechaLiberacion" type="date" class="form-control" />
+                <span asp-validation-for="EvidenciaOReporte.FechaLiberacion" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Estado</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="EvidenciaOReporte.EstadoPais" class="form-control" />
+                <span asp-validation-for="EvidenciaOReporte.EstadoPais" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Municipio</label>
+            </div>
+            <div class="col-8">
+                <input asp-for="EvidenciaOReporte.Municipio" class="form-control" />
+                <span asp-validation-for="EvidenciaOReporte.Municipio" class="text-danger"></span>
+            </div>
+        </div>
+        <br />
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Semestre Actual</label>
+            </div>
+            <div class="col-8">
+                <fieldset>
+                    <select id="MovieType" class="form-control" asp-for="EvidenciaOReporte.SemestreActual">
+                        <option value="">Seleccionar</option>
+                        <option>PRIMERO SEMESTRE</option>
+                        <option>SEGUNDO SEMESTRE</option>
+                        <option>TERCERO SEMESTTRE</option>
+                        <option>CUARTO SEMESTRE</option>
+                        <option>QUINTO SEMESTRE</option>
+                        <option>SEXTO SEMESTRE</option>
+                        <option>SÉPTIMO SEMESTRE</option>
+                        <option>OCTAVO SEMESTRE</option>
+                    </select>
+                </fieldset>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-4">
+                <label>Grupo Actual</label>
+            </div>
+            <div class="col-8">
+                <fieldset>
+                    <select id="MovieType" class="form-control" asp-for="EvidenciaOReporte.GrupoActual">
+                        <option value="">Seleccionar</option>
+                        <option>Grupo Uno</option>
+                        <option>Grupo Dos</option>
+                        <option>Grupo tres</option>
+                    </select>
+                </fieldset>
+            </div>
+        </div>
+            <div class="form-group row">
+            <div class="col-4">
+                <label>Seleccione el orden de actividad es</label>
+            </div>
+            <div class="col-8">
+                <fieldset>
+                    <select id="MovieType" class="form-control" asp-for="EvidenciaOReporte.Imagenes">
+                        <option value="">Seleccionar</option>
+                        <option>Primera Actividad</option>
+                        <option>Segunda Actividad</option>
+                        <option>Tercera Actividad3</option>
+                        <option>Cuarta Actividad</option>
+                        <option>Quinta Actividad</option>
+                        <option>Sexta Actividad</option>
+                        <option>Actividad Final</option>
+                    </select>
+                </fieldset>
+            </div>
+            </div>
+       
+        <br />
+        <div class="form-group row">
+            <div class="col-4">
+                Archivo
+            </div>
+            <div class="col-8">
+                <input type="file" accept=".pdf" name="files" id="imagedoc" multiple class="form-control" />
+            </div>
+        </div>
+        <br />
+           <div class="form-group row">
+                <div class="col-8 offset-4">
+                    @if (Model.EvidenciaOReporte.Id != 0)
+                    {
+                        <partial name="_BotonesActualizarYRegresar" model="Model.EvidenciaOReporte.Id" />
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col">
+                            <button type="submit" onclick="return validarEntrada()" class="btn btn-primary form-control"><i class="fas fa-cog fa-spin"></i>Guardar</button>
+                            </div>
+                            @*<div class="col">
+                                <a asp-action="Index" class="btn btn-success form-control">Regresar</a>
+                            </div>*@
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>       
+
+      
+    
+        @if (Model.EvidenciaOReporte.Id != 0)
+        {
+        <div class="form-control">
+            <div class="col-12 border-bottom">
+                <h2 class="text-primary">@tituloDos</h2>
+            </div>
+            <div class="col-4 border-0">
+                <img src="~/imagenes/Pdf.png" style="width:100%; border-radius:5px; border:1px solid #bbb9b9" />
+            </div>
+            <a class="btn btn-lg btn-primary" src="@Model.EvidenciaOReporte.Archivo" href="@Model.EvidenciaOReporte.Archivo">Descarga Archivo</a>
+        </div>
+        }
+    
+
+    </form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function validarEntrada() {
+            if (document.getElementById("imagedoc").value == "") {
+                swal("Error", "Seleccione Archivo", "error");
+                return false;
+            }
+            return true;
+        }
+
+    </script>
+    @* valida si archivo seleccionado tipo pdf*@
+     <script type="text/javascript">
+        (function () {
+            function validarEntrada(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#imagedoc').html("<img src='" + e.target.result + "' />");
+                    }
+
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+
+            $('#imagedoc').change(function (el) {
+                if (LimitAttach(this, 1))
+                    validarEntrada(this);
+            });
+        })();
+    </script>
+    <script type="text/javascript">
+        function LimitAttach(tField, iType) {
+            file = tField.value;
+            if (iType == 1) {
+                extArray = new Array(".pdf");
+            }
+            allowSubmit = false;
+            if (!file) return false;
+            while (file.indexOf("\\") != -1) file = file.slice(file.indexOf("\\") + 1);
+            ext = file.slice(file.indexOf(".")).toLowerCase();
+            for (var i = 0; i < extArray.length; i++) {
+                if (extArray[i] == ext) {
+                    allowSubmit = true;
+                    break;
+                }
+            }
+            if (allowSubmit) {
+                return true
+            } else {
+                tField.value = "";
+                swal("Error", "Seleccione un Formato tipo PDF", "error" + (extArray.join(" ")) + "\n Reiniciando Formulario");
+                return false;
+                setTimeout("location.reload()", 2000);
+            }
+        }
+    </script>
+
+}
+
+
+
+
+
+

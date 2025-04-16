@@ -1,0 +1,110 @@
+﻿@using AdminsWorkSystem.Utilidades
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Trabajo Solidatio</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/stile.css" />
+    <link rel="shortcut icon" type="image/png" href="~/imagenes/logo.png" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-success border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">UAIM</a>
+                <zbutton class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </zbutton>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_Coordinadores) || User.IsInRole(DS.Role_JefaDepartamento))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Usuario
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Usuario" asp-action="Index">Usuarios</a>
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(DS.Role_ResponsableU) || User.IsInRole(DS.Role_ResponsableC))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Usuario
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Usuario" asp-action="ObtenerLista">Usuarios</a>
+                                </div>
+                            </li>
+                        }
+                        @if (User.IsInRole(DS.Role_Admin))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Administración
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Generacion" asp-action="Index">Generación</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Unidades" asp-action="Index">Unidades</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Especialidades" asp-action="Index">Especialidades</a>
+                                </div>                              
+                            </li>
+                        }
+                        @if (User.IsInRole(DS.Role_Admin) || User.IsInRole(DS.Role_JefaDepartamento) || User.IsInRole(DS.Role_ResponsableU) || User.IsInRole(DS.Role_ResponsableC) || User.IsInRole(DS.Role_Coordinadores) || User.IsInRole(DS.Role_Estudiante))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Formatos TS
+                                </a>
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Formatos" asp-action="Index">Descarga</a>
+                                    <a class="dropdown-item" asp-area="Estudiantes" asp-controller="EvidenciaOReporte" asp-action="Validacion">Mis Formatos TS</a>
+                                    <a class="dropdown-item" asp-area="Admin" asp-controller="Constancia" asp-action="Index">Constancia</a>
+                                </div>
+                            </li>
+                            
+                        }
+                        
+                        @if (User.IsInRole(DS.Role_Estudiante)){
+                            <li class="nav-item">
+                                <a class="nav-link " asp-area="Estudiantes" asp-controller="EvidenciaOReporte" asp-action="Upsert">Eviar Formatos TS</a>
+                            </li>
+                        }                        
+
+                    </ul>
+                    <partial name="_LoginPartial" />
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer bg-success text-white">
+        <div class="container">
+            &copy; 2023 - Trabajo Solidario - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://kit.fontawesome.com/e19c476714.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
